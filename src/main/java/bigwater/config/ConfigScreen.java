@@ -4,6 +4,7 @@ import bigwater.BigWater;
 import javafx.scene.input.KeyCode;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.components.Checkbox;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.components.Button;
@@ -14,6 +15,7 @@ import net.minecraft.network.chat.Component;
 
 public class ConfigScreen extends Screen {
     private EditBox scaleInput;
+    private Checkbox overrideInput;
     private Button backButton;
     private Screen parent;
 
@@ -33,6 +35,7 @@ public class ConfigScreen extends Screen {
     public void onClose() {
         if (parent != null) {
             BigWater.setConfig(BigWater.VAR_DEFAULTSCALE, String.valueOf(Integer.valueOf(scaleInput.getValue())));
+            BigWater.setConfig(BigWater.VAR_OVERRIDE, String.valueOf(overrideInput.selected()));
             BigWater.writeConfig();
             minecraft.setScreen(parent);
             minecraft.levelRenderer.allChanged();
@@ -51,6 +54,7 @@ public class ConfigScreen extends Screen {
         scaleInput = new EditBox(font, 64, 16, Component.literal("Standard texture scale"));
         scaleInput.setPosition(posX, posY);
         scaleInput.setValue(String.valueOf(BigWater.defaultTextureScale));
+        addRenderableWidget(scaleInput);
         /*scaleInput.setResponder(s -> {
             try {
                 int input = Integer.parseInt(s);
@@ -59,14 +63,20 @@ public class ConfigScreen extends Screen {
                 scaleInput.setValue(String.valueOf(BigWater.defaultTextureScale));
             }
         });*/
+        posY += 32;
+        overrideInput = Checkbox.builder(Component.literal(""), font).pos(posX,posY).selected(BigWater.override).build();
+        addRenderableWidget(overrideInput);
     }
 
     @Override
     public void extractRenderState(final GuiGraphicsExtractor graphics, int mouseX, int mouseY, float delta) {
+        super.extractRenderState(graphics, mouseX, mouseY, delta);
         //renderBackground(context, mouseX, mouseY, delta);
         backButton.extractRenderState(graphics, mouseX, mouseY, delta);
         graphics.text(font, "Standard texture scale:", 32, scaleInput.getY() + 4, 0xFFFFFFFF);
         scaleInput.extractRenderState(graphics, mouseX, mouseY, delta);
+        graphics.text(font, "Override pack-provided settings:", 32, overrideInput.getY() + 4, 0xFFFFFFFF);
+        overrideInput.extractRenderState(graphics, mouseX, mouseY, delta);
     }
 
     @Override
@@ -74,6 +84,9 @@ public class ConfigScreen extends Screen {
         if(backButton.mouseClicked(click, isDoubled)) return true;
         if(scaleInput.mouseClicked(click, isDoubled)){
             setFocused(scaleInput);
+        }
+        if(overrideInput.mouseClicked(click, isDoubled)){
+            setFocused(overrideInput);
         }
         return super.mouseClicked(click, isDoubled);
     }

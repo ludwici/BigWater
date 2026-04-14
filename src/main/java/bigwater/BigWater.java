@@ -33,8 +33,10 @@ public class BigWater implements ClientModInitializer {
 	private static final SimpleConfig CONFIG = SimpleConfig.of(MOD_ID).provider( BigWater::provider ).request();
 
 	public static final String VAR_DEFAULTSCALE = "defaultTextureScale";
+	public static final String VAR_OVERRIDE = "override";
 	public static int defaultTextureScale = CONFIG.getOrDefault(VAR_DEFAULTSCALE, 1);
 	public static float defaultScalant = 1.0f/defaultTextureScale;
+	public static boolean override = CONFIG.getOrDefault(VAR_OVERRIDE, false);
 
 	public static Map<String, Tuple<Integer, Float>> textureScales = HashMap.newHashMap(8);
 	private static List<String> failedLookups = new LinkedList<>();
@@ -84,6 +86,9 @@ public class BigWater implements ClientModInitializer {
 	}
 
 	public static Tuple<Integer, Float> getTextureScale(String identifier){
+		if (override){
+			return new Tuple<>(defaultTextureScale, defaultScalant);
+		}
 		if (textureScales.containsKey(identifier)){
 			return textureScales.get(identifier);
 		}
@@ -97,9 +102,11 @@ public class BigWater implements ClientModInitializer {
 	public static void setConfig(String key, String value){
 		CONFIG.set(key, value);
 
-		if(key.equals(VAR_DEFAULTSCALE)){
+		if (key.equals(VAR_DEFAULTSCALE)){
 			defaultTextureScale = CONFIG.getOrDefault(key, 1);
 			defaultScalant = 1.0f/defaultTextureScale;
+		} else if (key.equals(VAR_OVERRIDE)){
+			override = Boolean.parseBoolean(value);
 		}
 	}
 
@@ -109,7 +116,9 @@ public class BigWater implements ClientModInitializer {
 
 	private static String provider( String filename ) {
 		return "# Default scale for textures if resourcepacks don't provide any:\n"
-				+ VAR_DEFAULTSCALE + "=1";
+				+ VAR_DEFAULTSCALE + "=1"
+				+ "\n\n# Override pack-provided settings with default scale:\n"
+				+ VAR_OVERRIDE + "=false";
 	}
 
 	public static int getTexPos(int worldPos, int textureScale, boolean reverseCoords){
