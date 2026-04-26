@@ -1,10 +1,9 @@
-package bigwater.mixin;
+package com.ludwici.bigwater.mixin;
 
-import bigwater.BigWater;
-import bigwater.access.FluidRendererAccess;
+
+import com.ludwici.bigwater.BigWater;
+import com.ludwici.bigwater.access.FluidRendererAccess;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.block.FluidRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -16,11 +15,11 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-import static bigwater.BigWater.getTexPos;
+import static com.ludwici.bigwater.BigWater.getTexPos;
+
 
 @Mixin(FluidRenderer.class)
 abstract class FluidRendererRedirect {
-	@Environment(EnvType.CLIENT)
 
 	@Redirect(
 			at = @At(
@@ -114,7 +113,7 @@ abstract class FluidRendererRedirect {
 				vPos = getTexPos(pos.getY(), textureScale, true);
 				break;
 			default:
-				BigWater.LOGGER.info("Invalid Direction: " + dir);
+                BigWater.LOGGER.info("Invalid Direction: {}", dir);
 				break;
 		}
 		addFaceMod(instance, builder, x0, y0, z0, u0, v0, x1, y1, z1, u1, v1, x2, y2, z2, u2, v2, x3, y3, z3, u3, v3, color, lightCoords, addBackFace, uPos, vPos, scaleData);

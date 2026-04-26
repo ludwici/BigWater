@@ -1,6 +1,6 @@
 {
   "required": false,
-  "package": "bigwater.mixin",
+  "package": "com.ludwici.bigwater.mixin",
   "compatibilityLevel": "JAVA_25",
   "injectors": {
     "defaultRequire": 1

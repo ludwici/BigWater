@@ -1,4 +1,4 @@
-package bigwater.access;
+package com.ludwici.bigwater.access;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

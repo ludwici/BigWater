@@ -1,0 +1,10 @@
+{
+  "bigwater.configuration.defaultTextureScale": "Standard texture scale",
+  "bigwater.configuration.override": "Override pack-provided settings",
+
+  "bigwater.configuration.title": "Big Water Fork",
+  "bigwater.configuration.section.bigwater.client.toml.title": "",
+  "bigwater.configuration.defaultTextureScale.tooltip": "Default scale for textures if resourcepacks don't provide any",
+  "bigwater.configuration.override.tooltip": "Override pack-provided settings with default scale",
+  "bigwater.configuration.section.bigwater.client.toml": ""
+}

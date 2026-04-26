@@ -1,8 +1,8 @@
-package bigwater.mixin;
+package com.ludwici.bigwater.mixin;
 
-import bigwater.BigWater;
-import bigwater.access.FluidRendererAccess;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.ludwici.bigwater.BigWater;
+import com.ludwici.bigwater.access.FluidRendererAccess;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.block.BlockAndTintGetter;
 import net.minecraft.client.renderer.block.FluidModel;

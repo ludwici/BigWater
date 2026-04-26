@@ -1,8 +1,8 @@
-package bigwater.mixin;
+package com.ludwici.bigwater.mixin;
 
-import bigwater.BigWater;
-import bigwater.access.FluidRendererAccess;
-import com.mojang.blaze3d.vertex.VertexConsumer;
+
+import com.ludwici.bigwater.BigWater;
+import com.ludwici.bigwater.access.FluidRendererAccess;
 import net.caffeinemc.mods.sodium.client.model.quad.ModelQuadView;
 import net.caffeinemc.mods.sodium.client.model.quad.ModelQuadViewMutable;
 import net.caffeinemc.mods.sodium.client.model.quad.properties.ModelQuadFacing;
@@ -10,9 +10,6 @@ import net.caffeinemc.mods.sodium.client.render.chunk.compile.buffers.ChunkModel
 import net.caffeinemc.mods.sodium.client.render.chunk.compile.pipeline.DefaultFluidRenderer;
 import net.caffeinemc.mods.sodium.client.render.chunk.terrain.material.Material;
 import net.caffeinemc.mods.sodium.client.render.chunk.translucent_sorting.TranslucentGeometryCollector;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.client.renderer.block.FluidRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Tuple;
@@ -22,13 +19,12 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
-import static bigwater.BigWater.getTexPos;
+import static com.ludwici.bigwater.BigWater.getTexPos;
+
 
 @Mixin(DefaultFluidRenderer.class)
 abstract class SodiumFluidRendererRedirect {
-    @Environment(EnvType.CLIENT)
 
     @Redirect(
             at = @At(

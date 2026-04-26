@@ -1,8 +1,8 @@
-package bigwater.mixin;
+package com.ludwici.bigwater.mixin;
 
-import bigwater.BigWater;
-import bigwater.access.FluidRendererAccess;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.ludwici.bigwater.BigWater;
+import com.ludwici.bigwater.access.FluidRendererAccess;
 import net.caffeinemc.mods.sodium.client.model.color.ColorProvider;
 import net.caffeinemc.mods.sodium.client.model.light.LightMode;
 import net.caffeinemc.mods.sodium.client.model.light.LightPipeline;
